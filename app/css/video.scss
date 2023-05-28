@@ -1,0 +1,69 @@
+/* 
+https://codepen.io/rno1d/pen/XzLKwj 
+*/
+
+
+.video {
+    aspect-ratio: 16/9;
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: relative;
+}
+
+/* Add styling for the overlay element */
+#player-overlay {
+    width: 100%;
+    aspect-ratio: 16/9;
+    cursor: pointer;
+    z-index: 10;
+
+    /* Overlay will show behind video as a black shadow */
+    &:is(.lightbox) {
+        height: 100%;
+    }
+
+    /* Lightbox will change the position */
+    &:not(.lightbox) {
+        position: absolute;
+    }
+}
+
+
+#player {
+    aspect-ratio: 16/9;
+    /* A #player without a video needs a placeholder */
+    background-size: cover;
+    background: #000;
+
+    /* Lightbox will change the position */
+    &:not(.lightbox) {
+        width: 100%;
+        position: relative;
+        pointer-events: none; /* disable hover effects and clicks */
+    }
+
+    /* A #player with a video class needs a video */
+    &:is(iframe) {
+        height: auto;
+        display: flex;
+    }
+}
+
+.lightbox {
+    /* center on screen */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    pointer-events: auto; /* re-enable clicks for lightbox mode */
+}
+
+

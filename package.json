@@ -1,0 +1,52 @@
+{
+  "name": "tabs",
+  "version": "2.0.0",
+  "author": "Trevin Brooks",
+  "description": "tabs example",
+  "license": "ISC",
+  "main": "index.js",
+  "browserslist": [
+    "defaults"
+  ],
+  "scripts": {
+    "dev:js": "rollup -c -w",
+    "dev:css": "postcss app/css/index.scss -o app/bundle.css -w",
+    "dev:server": "browser-sync app --files 'app/**/*, !app/css/**, !app/js/**' --no-open --no-notify --no-ghost-mode",
+    "prod:server": "browser-sync dist --no-open --no-notify --no-ghost-mode",
+    "build:pre:js": "rollup -c --environment NODE_ENV:production",
+    "build:pre:css": "postcss app/css/index.scss -o dist/bundle.css --env production",
+    "build:post:copy": "cp app/index.html dist/ && cp app/favicon.ico dist/ && cp app/favicon.svg dist/",
+    "build": "rimraf dist && concurrently npm:build:pre:* && concurrently npm:build:post:*",
+    "start": "concurrently --kill-others npm:dev:*",
+    "production": "npm run build && npm run prod:server"
+  },
+  "devDependencies": {
+    "@ampproject/rollup-plugin-closure-compiler": "0.27.0",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.1",
+    "@types/youtube": "^0.0.47",
+    "browser-sync": "^2.29.3",
+    "concurrently": "5.1.0",
+    "copyfiles": "^2.4.1",
+    "cssnano": "^6.0.1",
+    "import-http": "^0.3.1",
+    "postcss": "8.4.23",
+    "postcss-cli": "10.1.0",
+    "postcss-import": "^15.1.0",
+    "postcss-import-url": "^7.2.0",
+    "postcss-loader": "^7.3.0",
+    "postcss-preset-env": "8.4.1",
+    "rimraf": "^5.0.1",
+    "rollup": "3.23.0",
+    "rollup-plugin-polyfill-node": "^0.12.0",
+    "rollup-plugin-postcss": "^4.0.2"
+  },
+  "dependencies": {
+    "load-script2": "^2.0.6"
+  }
+}
